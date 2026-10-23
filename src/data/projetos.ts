@@ -12,14 +12,14 @@ export const projetos: Projeto [] = [
         nome: "Cartão de Perfil",
         descricao: "Primeiro ecrã em React com Tailwind",
         tecnologias: ["React", "Tailwind"],
-        concluido: false,
+        concluido: true,
     },
     {
         id: 2,
         nome: "Loja de teclados",
         descricao: "Catálogo com preços e IVA",
         tecnologias: ["Typescript",],
-        concluido: false,
+        concluido: true,
     },
      {
         id: 3,
