@@ -58,13 +58,15 @@ function App() {
           {/* <h2 className="mb-5 text-lg font-semibold text-slate-700">
             Interesses
           </h2> */}
-        <Seccao titulo="Interesses">
-          <div className="flex flex-wrap gap-3">
-            {perfil.interesses.map((interesse) => (
-              <Etiqueta key={interesse} texto={interesse} />
-            ))}
-          </div>
-        </Seccao>
+        <div className='mt-8'>
+          <Seccao titulo="Interesses">
+            <div className="flex flex-wrap gap-3">
+              {perfil.interesses.map((interesse) => (
+                <Etiqueta key={interesse} texto={interesse} />
+              ))}
+            </div>
+          </Seccao>
+        </div>
         {/* </div> */}
 
         {/* Estágio */}
