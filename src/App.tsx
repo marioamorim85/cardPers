@@ -5,6 +5,7 @@ import Etiqueta from './components/Etiqueta'
 import Avatar from './components/Avatar'
 import Seccao from './components/Seccao'
 import { perfil } from './data/perfil'
+import { useState } from 'react'
 
 
 // type Perfil = {
@@ -20,6 +21,8 @@ function App() {
   // navigate é uma função que permite navegar para diferentes
   // rota dentro da aplicação. É obtida através do hook useNavigate.
   const navigate = useNavigate()
+  // O procura é um estado que indica se o perfil está à procura de estágio.
+  const [procura, setProcura] = useState(perfil.procuraEstagio)
   
   // const perfil: Perfil = {
   //   nome: 'Mário Amorim',
@@ -30,9 +33,11 @@ function App() {
   // }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-100 p-6">
+    <main className="flex min-h-screen items-center 
+                justify-center bg-slate-100 p-6">
       
-      <div className="w-full max-w-md rounded-4xl border border-slate-200 bg-white p-8 shadow-lg">
+      <div className="w-fit max-w-full rounded-4xl border
+               border-slate-200 bg-white p-8 shadow-lg">
 
         {/* Cabeçalho */}
         <div className="flex items-center gap-6">
@@ -70,20 +75,40 @@ function App() {
         {/* </div> */}
 
         {/* Estágio */}
-        {perfil.procuraEstagio && (
-          <div className="mt-5">
-            <Etiqueta texto="À procura de estágio" destaque />
-          </div>
-        )}
+        <div className='mt-5'>
+          {procura ? (
+              <Etiqueta texto="À procura de estágio" destaque />
+          ) : (
+            <span className='inline-flex items-center rounded-full
+                              bg-red-100 px-6 py-3 font-semibold
+                               text-red-800'>
+                  Não procura estágio.
+            </span>
+          )}
+        </div>
 
-        {/* Botão de navegação */}
-        
-        <button
-          onClick={() => navigate('/perfil')}
-          className="mt-8 rounded-lg bg-slate-700 px-5 py-3 font-semibold text-white hover:bg-slate-800"
-        >
-          Ver Perfil
-        </button>
+        <div className='mt-8 flex flex-wrap gap-3'>
+          {/* Botão de alternar procura de estágio */}
+          <button
+            onClick={() => setProcura((valorAtual) => !valorAtual)}
+            className="mt-8 mr-1.5 rounded-lg bg-slate-700 px-5 py-3 font-semibold text-white hover:bg-slate-800"
+          >
+            {procura ? `Deixar de procurar estágio` : `Procura estágio`}
+          </button>
+          {/* Botão de navegação */}
+          <button
+            onClick={() => navigate('/perfil')}
+            className="mt-8 mr-1.5 rounded-lg bg-slate-700 px-5 py-3 font-semibold text-white hover:bg-slate-800"
+          >
+            Ver Perfil
+          </button>
+          <button
+            onClick={() => navigate('/contador')}
+            className="mt-8 rounded-lg bg-slate-700 px-5 py-3 font-semibold text-white hover:bg-slate-800"
+          >
+            Contador
+          </button>
+        </div>
 
       </div>
 

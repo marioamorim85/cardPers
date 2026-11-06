@@ -11,5 +11,5 @@ export const perfil: Perfil = {
     curso: 'DS',
     ano: '2.º ano',
     interesses: ['React', 'UX', 'Jogos', 'IA'],
-    procuraEstagio: true,
+    procuraEstagio: false,
 }
