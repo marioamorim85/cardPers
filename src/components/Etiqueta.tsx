@@ -16,13 +16,17 @@
 type EtiquetaProps = {
     texto: string;
     destaque?: boolean;
+    emCurso?:boolean;
 };
 
 export default function Etiqueta({ 
-    texto, 
+    texto,
+    emCurso = false, 
     destaque = false,
 }: EtiquetaProps) {
-    const cores = destaque
+    const cores = emCurso
+        ? "bg-amber-100 text-amber-800"
+    : destaque
         ? "bg-emerald-100 text-emerald-800"
         : 'bg-sky-100 text-sky-800';
     const tamanho = destaque ? "px-6 py-3" : "px-5 py-2";

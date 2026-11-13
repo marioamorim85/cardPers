@@ -12,11 +12,25 @@ function PerfilPage() {
 
   const [filtro, setFiltro] = useState<Filtro>("todos");
 
-  const projetosVisiveis = projetos.filter((projeto) => {
-    if (filtro === "concluidos") return projeto.concluido;
-    if (filtro === "emCurso") return !projeto.concluido;
+  // O estado da pesquisa, começa em string vazia
+  // porque no início o utilizador ainda não escreveu nada
 
-    return true;
+  const [pesquisa, setPesquisa] = useState("");
+
+  // Um único filter com as duas condições
+  const projetosVisiveis = projetos.filter((projeto) => {
+    //confirmar se o projecto corresponde à cateregoria seleconada
+    const passarFiltro = 
+      filtro === "todos" ||
+      (filtro === "concluidos" && projeto.concluido) ||
+      (filtro === "emCurso" && !projeto.concluido);
+
+    // Confirma se o nome contém a pesquisa, sem distingui maúsculas
+    const passaPesquisa = projeto.nome.toLowerCase()
+          .includes(pesquisa.toLowerCase())
+
+    // O projecto precisa corresponder aos dois critérios
+    return passarFiltro && passaPesquisa;
   });
 
   return (
@@ -64,6 +78,22 @@ function PerfilPage() {
 
         <div className="mt-8">
           <Seccao titulo={`Projetos (${projetosVisiveis.length})`}>
+
+            {/* O campo de pesquisa, por cima dos botões */}
+            <input
+                type="text"
+                // value liga o ecrã ao estado: o estado manda no que se vê
+                value={pesquisa}
+                // onChange liga o ecrâ de valta ao estado:
+                // a cada tecla, evento.target.value traz o texto completo na caixa
+                onChange={(evento)=> setPesquisa(evento.target.value)}
+                placeholder="Pesquisar projecto..."
+                className="mb-4 w-full rounded-lg border border-slate-300 px-4
+                            py-2 text-slate-700 placeholder:text-slate-400
+                            focus:border-slate-500 focus:outline-none" 
+            />
+
+
             <div className="mb-4 flex flex-wrap gap-2">
               <button
                 onClick={() => setFiltro("todos")}
@@ -123,7 +153,7 @@ function PerfilPage() {
                       {projeto.concluido ? (
                         <Etiqueta texto="Concluído" destaque />
                       ) : (
-                        <Etiqueta texto="Em curso" />
+                        <Etiqueta texto="Em curso" emCurso/>
                       )}
                     </div>
                   </article>
